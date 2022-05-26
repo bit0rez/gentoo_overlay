@@ -3,9 +3,9 @@
 
 EAPI=8
 
-DESCRIPTION="ClockHouse client"
+DESCRIPTION="ClickHouse client"
 HOMEPAGE="https://clickhouse.tech/"
-SRC_URI="https://repo.clickhouse.tech/tgz/${P}.tgz"
+SRC_URI="https://repo.clickhouse.tech/tgz/lts/${P}.tgz"
 
 LICENSE="APACHE v2"
 SLOT="0"
@@ -25,6 +25,5 @@ src_install() {
 	insinto /usr
 	doins -r usr/bin
 
-	docinto /usr/share/doc/clickhouse-client
-	dodoc -r usr/share/doc/clickhouse-client/
+	dodoc -r usr/share/doc/clickhouse-client/*
 }

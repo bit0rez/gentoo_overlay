@@ -20,12 +20,13 @@ src_install() {
 	cd ${WORKDIR}/${P}
 	dobin usr/bin/clickhouse
 	dobin usr/bin/clickhouse-odbc-bridge
+	dobin usr/bin/clickhouse-library-bridge
 
 	insinto /usr/bin
 	doins usr/bin/clickhouse-extract-from-config
 
 	insinto /
-	doins -r etc
+	doins -r usr/share/bash-completion/*
 
 	dodoc -r usr/share/doc/clickhouse-common-static/*
 }

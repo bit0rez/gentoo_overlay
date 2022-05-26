@@ -3,7 +3,7 @@
 
 EAPI=8
 
-DESCRIPTION="ClockHouse client"
+DESCRIPTION="ClickHouse client"
 HOMEPAGE="https://clickhouse.tech/"
 SRC_URI="https://repo.clickhouse.tech/tgz/lts/${P}.tgz"
 
