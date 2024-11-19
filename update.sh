@@ -1,4 +1,4 @@
 #!/bin/bash
 
-pkgdev manifest
-pkgcheck scan
+# pkgdev manifest
+pkgcheck scan --net .
