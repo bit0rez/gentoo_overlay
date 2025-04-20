@@ -4,12 +4,12 @@
 EAPI=8
 
 DESCRIPTION="ClickHouse client"
-HOMEPAGE="https://clickhouse.tech/"
-SRC_URI="https://repo.clickhouse.tech/tgz/lts/${P}.tgz"
+HOMEPAGE="https://clickhouse.com/"
+SRC_URI="https://packages.clickhouse.com/tgz/lts/${P}-amd64.tgz"
 
 LICENSE="APACHE v2"
 SLOT="0"
-KEYWORDS="amd64 ~x86"
+KEYWORDS="amd64"
 IUSE=""
 
 DEPEND=""
