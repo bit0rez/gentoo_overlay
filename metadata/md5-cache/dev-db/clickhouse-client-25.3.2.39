@@ -1,0 +1,10 @@
+DEFINED_PHASES=install
+DESCRIPTION=ClickHouse client
+EAPI=8
+HOMEPAGE=https://clickhouse.com/
+IDEPEND==dev-db/clickhouse-common-static-25.3.2.39
+KEYWORDS=amd64
+LICENSE=APACHE v2
+SLOT=0
+SRC_URI=https://packages.clickhouse.com/tgz/lts/clickhouse-client-25.3.2.39-amd64.tgz
+_md5_=0853bda61eb122ade5fc6e10db5c18b5
