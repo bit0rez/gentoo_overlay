@@ -1,0 +1,11 @@
+DEFINED_PHASES=install unpack
+DESCRIPTION=Official Yandex Music Player
+EAPI=8
+HOMEPAGE=https://music.yandex.ru/
+INHERIT=unpacker
+KEYWORDS=amd64 ~x86
+LICENSE=MIT
+SLOT=0
+SRC_URI=https://music-desktop-application.s3.yandex.net/stable/Yandex_Music_amd64_5.67.0.deb
+_eclasses_=multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	a0b29008c671a362b505f96fa80ce9c0	unpacker	3b4ee72d1e2e0374fd8cd3eddfa00627
+_md5_=4981180c4ece6c36dd64383e1d4be2c5
