@@ -1,11 +1,11 @@
 DEFINED_PHASES=install unpack
-DESCRIPTION=Official Yandex Music Player
+DESCRIPTION=Not Official ebuild of Official MAX messenger
 EAPI=8
-HOMEPAGE=https://music.yandex.ru/
+HOMEPAGE=https://max.ru/
 INHERIT=unpacker
 KEYWORDS=amd64 ~x86
 LICENSE=MIT
 SLOT=0
-SRC_URI=https://music-desktop-application.s3.yandex.net/stable/Yandex_Music_amd64_5.61.1.deb
+SRC_URI=https://download.max.ru/linux/deb/pool/main/m/max/MAX-26.4.1.46437.deb
 _eclasses_=multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	7e440a20ac11dece04e3334622e6e5da	unpacker	3b4ee72d1e2e0374fd8cd3eddfa00627
-_md5_=4981180c4ece6c36dd64383e1d4be2c5
+_md5_=f9ee6cece4e14af0952f6858f7f6a32a
