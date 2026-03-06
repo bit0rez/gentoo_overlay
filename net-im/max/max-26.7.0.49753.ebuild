@@ -23,7 +23,6 @@ src_install() {
 	insinto /usr/share
 	doins -r usr/share/{applications,icons,pixmaps}
 
-
 	insinto /opt/max
 	doins -r usr/share/max/*
 

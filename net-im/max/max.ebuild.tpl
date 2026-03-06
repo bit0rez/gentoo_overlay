@@ -17,10 +17,11 @@ S=${WORKDIR}
 src_install() {
 	cd "${WORKDIR}/${P}"
 
+	sed -i 's#/usr/share/max/bin#/opt/max/bin#g' usr/share/applications/max.desktop
+	sed -i 's#/usr/share/max/bin#/opt/max/bin#g' usr/share/applications/MAX.desktop
+
 	insinto /usr/share
 	doins -r usr/share/{applications,icons,pixmaps}
-
-	sed -i /usr/share/applications/max.desktop 's#/usr/share/max/bin#/opt/max/bin#g'
 
 	insinto /opt/max
 	doins -r usr/share/max/*
