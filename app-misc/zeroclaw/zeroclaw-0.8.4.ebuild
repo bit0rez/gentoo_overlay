@@ -28,7 +28,7 @@ S=${WORKDIR}
 
 LICENSE="|| ( Apache-2.0 MIT )"
 SLOT="0"
-KEYWORDS="-* ~amd64 ~arm64"
+KEYWORDS="-* amd64 arm64"
 REQUIRED_USE="^^ ( elibc_glibc elibc_musl )"
 
 RESTRICT="strip"

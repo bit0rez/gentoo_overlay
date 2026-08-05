@@ -329,7 +329,7 @@ SRC_URI="
 
 LICENSE="MIT Apache-2.0 Gemma"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="amd64"
 RESTRICT="mirror"
 
 RDEPEND="acct-user/qmd"
