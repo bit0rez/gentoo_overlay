@@ -1,0 +1,144 @@
+diff -ruN a/qmd/src/llm.rs b/qmd/src/llm.rs
+--- a/qmd/src/llm.rs	2026-02-03 10:23:52.000000000 +0300
++++ b/qmd/src/llm.rs	2026-07-31 14:08:34.593318470 +0300
+@@ -398,8 +398,7 @@
+ /// # Errors
+ /// Returns an error if the model is not found.
+ pub fn get_model_path(model_name: &str) -> Result<PathBuf> {
+-    let cache_dir = config::get_model_cache_dir();
+-    let model_path = cache_dir.join(model_name);
++    let model_path = configured_model_path(model_name);
+ 
+     if !model_path.exists() {
+         bail!(
+@@ -411,11 +410,20 @@
+     Ok(model_path)
+ }
+ 
++fn configured_model_path(model_name: &str) -> PathBuf {
++    if model_name == DEFAULT_EMBED_MODEL {
++        if let Some(path) = std::env::var_os("QMD_MODEL_PATH") {
++            return PathBuf::from(path);
++        }
++    }
++
++    config::get_model_cache_dir().join(model_name)
++}
++
+ /// Check if a model exists in the cache.
+ #[must_use]
+ pub fn model_exists(model_name: &str) -> bool {
+-    let cache_dir = config::get_model_cache_dir();
+-    cache_dir.join(model_name).exists()
++    configured_model_path(model_name).exists()
+ }
+ 
+ /// List available models in the cache.
+diff -ruN a/qmd-mcp/src/main.rs b/qmd-mcp/src/main.rs
+--- a/qmd-mcp/src/main.rs	2026-02-03 10:23:52.000000000 +0300
++++ b/qmd-mcp/src/main.rs	2026-07-31 14:08:34.593318470 +0300
+@@ -1,8 +1,14 @@
+-//! QMD MCP Server - Entry point with stdio transport.
++//! QMD MCP Server - Entry point with stdio and Streamable HTTP transports.
+ 
+ use anyhow::Result;
++use axum::{Router, routing::get};
+ use clap::Parser;
+-use rmcp::ServiceExt;
++use rmcp::{
++    ServiceExt,
++    transport::streamable_http_server::{
++        StreamableHttpService, session::local::LocalSessionManager,
++    },
++};
+ use tracing_subscriber::{EnvFilter, fmt, prelude::*};
+ 
+ use qmd_mcp::QmdMcpServer;
+@@ -15,6 +21,18 @@
+     /// Enable verbose logging.
+     #[arg(short, long)]
+     verbose: bool,
++
++    /// Serve MCP over Streamable HTTP instead of stdio.
++    #[arg(long)]
++    http: bool,
++
++    /// Address used by the HTTP transport.
++    #[arg(long, env = "QMD_MCP_IP", default_value = "127.0.0.1")]
++    ip: String,
++
++    /// Port used by the HTTP transport.
++    #[arg(long, env = "QMD_MCP_PORT", default_value_t = 8181)]
++    port: u16,
+ }
+ 
+ #[tokio::main]
+@@ -33,16 +51,60 @@
+         .with(filter)
+         .init();
+ 
+-    // Create QMD MCP server
+-    let server = QmdMcpServer::new();
+-
+-    tracing::info!("Starting QMD MCP server with stdio transport");
+-
+-    // Serve using stdio transport
+-    let service = server.serve(rmcp::transport::stdio()).await?;
++    if args.http {
++        serve_http(&args.ip, args.port).await
++    } else {
++        serve_stdio().await
++    }
++}
+ 
+-    // Wait for the service to complete
++async fn serve_stdio() -> Result<()> {
++    let service = QmdMcpServer::new()
++        .serve(rmcp::transport::stdio())
++        .await?;
+     service.waiting().await?;
++    Ok(())
++}
+ 
++async fn serve_http(ip: &str, port: u16) -> Result<()> {
++    let service: StreamableHttpService<QmdMcpServer, LocalSessionManager> =
++        StreamableHttpService::new(
++            || Ok(QmdMcpServer::new()),
++            Default::default(),
++            Default::default(),
++        );
++    let router = Router::new()
++        .nest_service("/mcp", service)
++        .route("/health", get(|| async { "ok\n" }));
++    let listener = tokio::net::TcpListener::bind((ip, port)).await?;
++
++    tracing::info!("Starting QMD MCP server on http://{ip}:{port}/mcp");
++    axum::serve(listener, router)
++        .with_graceful_shutdown(shutdown_signal())
++        .await?;
+     Ok(())
+ }
++
++async fn shutdown_signal() {
++    let ctrl_c = async {
++        tokio::signal::ctrl_c()
++            .await
++            .expect("failed to install Ctrl-C handler");
++    };
++
++    #[cfg(unix)]
++    let terminate = async {
++        tokio::signal::unix::signal(tokio::signal::unix::SignalKind::terminate())
++            .expect("failed to install SIGTERM handler")
++            .recv()
++            .await;
++    };
++
++    #[cfg(not(unix))]
++    let terminate = std::future::pending::<()>();
++
++    tokio::select! {
++        () = ctrl_c => {},
++        () = terminate => {},
++    }
++}

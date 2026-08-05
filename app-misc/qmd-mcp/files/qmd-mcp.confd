@@ -1,0 +1,9 @@
+# Copyright 2026 Ilya Merkulov
+# Distributed under the terms of the GNU General Public License v2
+
+# Network endpoint for Streamable HTTP MCP.
+QMD_MCP_IP="127.0.0.1"
+QMD_MCP_PORT="8181"
+
+# Embedding GGUF used by QMD semantic search.
+QMD_MODEL_PATH="/var/lib/qmd/models/embeddinggemma-300M-Q8_0.gguf"

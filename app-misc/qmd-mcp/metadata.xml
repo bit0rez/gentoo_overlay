@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<name>Ilya Merkulov</name>
+		<email>iamerkulov@avito.ru</email>
+	</maintainer>
+	<longdescription>
+		Runs qmd-mcp as a dedicated user and exposes the shared QMD index over
+		Streamable HTTP for multiple MCP clients.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">qntx-labs/qmd</remote-id>
+	</upstream>
+</pkgmetadata>

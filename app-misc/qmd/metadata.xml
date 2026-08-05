@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<name>Ilya Merkulov</name>
+		<email>iamerkulov@avito.ru</email>
+	</maintainer>
+	<longdescription>
+		Installs the QMD command-line client, MCP server, and the default
+		EmbeddingGemma GGUF model with system-wide shared storage.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">qntx-labs/qmd</remote-id>
+	</upstream>
+</pkgmetadata>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<name>Ilya Merkulov</name>
+		<email>iamerkulov@avito.ru</email>
+	</maintainer>
+	<longdescription>
+		ZeroClaw is an autonomous AI assistant distributed as a command-line
+		client, a terminal interface, and a web dashboard.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">zeroclaw-labs/zeroclaw</remote-id>
+	</upstream>
+</pkgmetadata>

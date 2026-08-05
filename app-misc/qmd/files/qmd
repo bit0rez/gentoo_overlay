@@ -1,0 +1,9 @@
+#!/bin/sh
+set -eu
+
+export HOME="${QMD_HOME:-/var/lib/qmd}"
+export XDG_CACHE_HOME="${QMD_CACHE_HOME:-/var/lib}"
+export QMD_CONFIG_DIR="${QMD_CONFIG_DIR:-/var/lib/qmd/config}"
+export QMD_MODEL_PATH="${QMD_MODEL_PATH:-/var/lib/qmd/models/embeddinggemma-300M-Q8_0.gguf}"
+
+exec /usr/libexec/qmd/qmd "$@"
