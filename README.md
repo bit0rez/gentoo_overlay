@@ -12,7 +12,7 @@
 | --- | --- |
 | `app-misc/qmd` | Локальный поисковый движок и MCP-сервер для AI-агентов; включает модель EmbeddingGemma |
 | `app-misc/qmd-mcp` | OpenRC-сервис QMD MCP с общим системным индексом |
-| `app-misc/zeroclaw` | CLI, TUI и веб-интерфейс автономного AI-ассистента ZeroClaw |
+| `app-misc/zeroclaw` | CLI, TUI, веб-интерфейс и опциональное desktop-приложение ZeroClaw |
 | `dev-db/clickhouse-client` | Клиент ClickHouse |
 | `dev-db/clickhouse-common-static` | Статические компоненты ClickHouse |
 | `media-sound/yandex-music` | Официальное desktop-приложение Яндекс Музыки |
@@ -59,6 +59,13 @@ emerge --ask app-misc/qmd-mcp
 emerge --ask app-misc/zeroclaw
 emerge --ask media-sound/yandex-music
 emerge --ask net-im/max
+```
+
+ZeroClaw Desktop доступен на `amd64` с glibc и устанавливается с USE-флагом
+`desktop`:
+
+```sh
+USE=desktop emerge --ask app-misc/zeroclaw
 ```
 
 Стабильные keyword'ы определены непосредственно в ebuild. Для архитектур,

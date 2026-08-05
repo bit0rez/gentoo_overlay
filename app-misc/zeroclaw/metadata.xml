@@ -7,8 +7,12 @@
 	</maintainer>
 	<longdescription>
 		ZeroClaw is an autonomous AI assistant distributed as a command-line
-		client, a terminal interface, and a web dashboard.
+		client, a terminal interface, a web dashboard, and an optional desktop
+		application.
 	</longdescription>
+	<use>
+		<flag name="desktop">Install the ZeroClaw Desktop application</flag>
+	</use>
 	<upstream>
 		<remote-id type="github">zeroclaw-labs/zeroclaw</remote-id>
 	</upstream>
