@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<name>Ilya Merkulov</name>
+		<email>iamerkulov@avito.ru</email>
+	</maintainer>
+	<longdescription>
+		agent-lsp is an MCP server that orchestrates existing language servers
+		and exposes code navigation, analysis, refactoring, and editing workflows
+		to AI agents.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">blackwell-systems/agent-lsp</remote-id>
+	</upstream>
+</pkgmetadata>

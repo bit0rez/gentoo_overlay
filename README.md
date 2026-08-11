@@ -10,6 +10,7 @@
 
 | Пакет | Описание |
 | --- | --- |
+| `app-misc/agent-lsp` | MCP-сервер, объединяющий языковые серверы в рабочие процессы для AI-агентов |
 | `app-misc/beads` | Распределённый issue tracker и постоянная память для AI-агентов |
 | `app-misc/graphify` | Локальный граф знаний и MCP-сервер по исходному коду и документации |
 | `app-misc/qmd` | Локальный поисковый движок и MCP-сервер для AI-агентов; включает модель EmbeddingGemma |
@@ -56,6 +57,7 @@ eselect repository list
 Например:
 
 ```sh
+emerge --ask app-misc/agent-lsp
 emerge --ask app-misc/beads
 emerge --ask app-misc/graphify
 emerge --ask app-misc/qmd
@@ -63,6 +65,14 @@ emerge --ask app-misc/qmd-mcp
 emerge --ask app-misc/zeroclaw
 emerge --ask media-sound/yandex-music
 emerge --ask net-im/max
+```
+
+`app-misc/agent-lsp` устанавливает MCP-сервер, но не сами языковые серверы.
+Установите нужные серверы для своих языков, затем запустите настройку:
+
+```sh
+agent-lsp init
+agent-lsp doctor
 ```
 
 `app-misc/graphify` устанавливает локальный CLI, MCP-сервер и грамматические
