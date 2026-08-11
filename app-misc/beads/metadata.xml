@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<name>Ilya Merkulov</name>
+		<email>iamerkulov@avito.ru</email>
+	</maintainer>
+	<longdescription>
+		Beads is a distributed, dependency-aware issue tracker and persistent
+		memory system for coding agents, backed by embedded Dolt storage.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">gastownhall/beads</remote-id>
+	</upstream>
+</pkgmetadata>

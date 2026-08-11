@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<name>Ilya Merkulov</name>
+		<email>iamerkulov@avito.ru</email>
+	</maintainer>
+	<longdescription>
+		Graphify converts source trees, documentation, and other project data
+		into a local knowledge graph that coding agents can query and traverse
+		through its command-line interface or MCP server.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">Graphify-Labs/graphify</remote-id>
+		<remote-id type="pypi">graphifyy</remote-id>
+	</upstream>
+</pkgmetadata>

@@ -10,6 +10,8 @@
 
 | Пакет | Описание |
 | --- | --- |
+| `app-misc/beads` | Распределённый issue tracker и постоянная память для AI-агентов |
+| `app-misc/graphify` | Локальный граф знаний и MCP-сервер по исходному коду и документации |
 | `app-misc/qmd` | Локальный поисковый движок и MCP-сервер для AI-агентов; включает модель EmbeddingGemma |
 | `app-misc/qmd-mcp` | OpenRC-сервис QMD MCP с общим системным индексом |
 | `app-misc/zeroclaw` | CLI, TUI, веб-интерфейс и опциональное desktop-приложение ZeroClaw |
@@ -54,11 +56,21 @@ eselect repository list
 Например:
 
 ```sh
+emerge --ask app-misc/beads
+emerge --ask app-misc/graphify
 emerge --ask app-misc/qmd
 emerge --ask app-misc/qmd-mcp
 emerge --ask app-misc/zeroclaw
 emerge --ask media-sound/yandex-music
 emerge --ask net-im/max
+```
+
+`app-misc/graphify` устанавливает локальный CLI, MCP-сервер и грамматические
+модули tree-sitter для Go, Rust, TypeScript, Lua, JavaScript, Kotlin, C, C++,
+Java, Python, SQL и YAML. Запустить MCP-сервер для готового графа можно так:
+
+```sh
+graphify-mcp graphify-out/graph.json --transport stdio
 ```
 
 ZeroClaw Desktop доступен на `amd64` с glibc и устанавливается с USE-флагом

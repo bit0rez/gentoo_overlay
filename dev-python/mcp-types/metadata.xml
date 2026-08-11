@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<name>Ilya Merkulov</name>
+		<email>iamerkulov@avito.ru</email>
+	</maintainer>
+	<longdescription>
+		Python models for the Model Context Protocol wire format, shared by
+		MCP clients and servers.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">modelcontextprotocol/python-sdk</remote-id>
+		<remote-id type="pypi">mcp-types</remote-id>
+	</upstream>
+</pkgmetadata>

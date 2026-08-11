@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<name>Ilya Merkulov</name>
+		<email>iamerkulov@avito.ru</email>
+	</maintainer>
+	<upstream>
+		<remote-id type="github">tree-sitter/tree-sitter-go</remote-id>
+		<remote-id type="pypi">tree-sitter-go</remote-id>
+	</upstream>
+</pkgmetadata>
