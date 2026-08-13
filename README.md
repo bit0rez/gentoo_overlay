@@ -18,6 +18,7 @@
 | `app-misc/zeroclaw` | CLI, TUI, веб-интерфейс и опциональное desktop-приложение ZeroClaw |
 | `dev-db/clickhouse-client` | Клиент ClickHouse |
 | `dev-db/clickhouse-common-static` | Статические компоненты ClickHouse |
+| `dev-util/chatgpt-bin` | Официальное desktop-приложение ChatGPT с поддержкой Codex |
 | `media-sound/yandex-music` | Официальное desktop-приложение Яндекс Музыки |
 | `net-im/max` | Официальное desktop-приложение MAX |
 
@@ -63,6 +64,7 @@ emerge --ask app-misc/graphify
 emerge --ask app-misc/qmd
 emerge --ask app-misc/qmd-mcp
 emerge --ask app-misc/zeroclaw
+emerge --ask dev-util/chatgpt-bin
 emerge --ask media-sound/yandex-music
 emerge --ask net-im/max
 ```
