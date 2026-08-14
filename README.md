@@ -21,6 +21,7 @@
 | `dev-util/chatgpt-bin` | Официальное desktop-приложение ChatGPT с поддержкой Codex |
 | `media-sound/yandex-music` | Официальное desktop-приложение Яндекс Музыки |
 | `net-im/max` | Официальное desktop-приложение MAX |
+| `net-proxy/tun2socks` | Перенаправление трафика TUN-интерфейса через прокси в userspace |
 
 Системные пользователь и группа для QMD устанавливаются автоматически через
 `acct-user/qmd` и `acct-group/qmd`.
@@ -67,6 +68,7 @@ emerge --ask app-misc/zeroclaw
 emerge --ask dev-util/chatgpt-bin
 emerge --ask media-sound/yandex-music
 emerge --ask net-im/max
+emerge --ask net-proxy/tun2socks
 ```
 
 `app-misc/agent-lsp` устанавливает MCP-сервер, но не сами языковые серверы.
@@ -76,6 +78,18 @@ emerge --ask net-im/max
 agent-lsp init
 agent-lsp doctor
 ```
+
+Перед запуском `net-proxy/tun2socks` укажите прокси и параметры TUN-интерфейса
+в `/etc/tun2socks/config.yaml`. Затем добавьте сервис в автозагрузку и запустите
+его:
+
+```sh
+rc-update add tun2socks default
+rc-service tun2socks start
+```
+
+По умолчанию используется `socks5://127.0.0.1:1080`. Сервис не изменяет
+системные маршруты, если команды настройки маршрутизации не заданы явно.
 
 `app-misc/graphify` устанавливает локальный CLI, MCP-сервер и грамматические
 модули tree-sitter для Go, Rust, TypeScript, Lua, JavaScript, Kotlin, C, C++,

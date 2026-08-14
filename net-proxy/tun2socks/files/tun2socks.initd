@@ -1,0 +1,39 @@
+#!/sbin/openrc-run
+# Copyright 2026 Ilya Merkulov
+# Distributed under the terms of the GNU General Public License v2
+
+description="Userspace TUN-to-proxy service"
+
+: "${TUN2SOCKS_CONFIG:=/etc/tun2socks/config.yaml}"
+: "${TUN2SOCKS_EXTRA_ARGS:=}"
+
+supervisor="supervise-daemon"
+command="/usr/bin/tun2socks"
+command_args="--config ${TUN2SOCKS_CONFIG} ${TUN2SOCKS_EXTRA_ARGS}"
+pidfile="/run/tun2socks.pid"
+output_log="/var/log/tun2socks/tun2socks.log"
+error_log="${output_log}"
+respawn_delay=5
+respawn_max=3
+respawn_period=60
+retry="TERM/10/KILL/5"
+
+depend() {
+	need localmount net
+	use dns
+}
+
+start_pre() {
+	if [ ! -r "${TUN2SOCKS_CONFIG}" ]; then
+		eerror "Configuration file is not readable: ${TUN2SOCKS_CONFIG}"
+		return 1
+	fi
+
+	if [ ! -c /dev/net/tun ]; then
+		eerror "/dev/net/tun is unavailable; enable TUN/TAP support first"
+		return 1
+	fi
+
+	checkpath --directory --mode 0750 /var/log/tun2socks || return 1
+	checkpath --file --mode 0600 /var/log/tun2socks/tun2socks.log || return 1
+}

@@ -1,0 +1,9 @@
+# Copyright 2026 Ilya Merkulov
+# Distributed under the terms of the GNU General Public License v2
+
+# Main tun2socks YAML configuration.
+TUN2SOCKS_CONFIG="/etc/tun2socks/config.yaml"
+
+# Additional command-line arguments. Keep credentials in the YAML file instead
+# of this variable because command-line arguments are visible to other users.
+TUN2SOCKS_EXTRA_ARGS=""

@@ -1,0 +1,19 @@
+# The service runs as root because it needs access to /dev/net/tun and because
+# tun-pre-up/tun-post-up commands, when configured, are executed by tun2socks.
+device: tun://tun0
+proxy: socks5://127.0.0.1:1080
+loglevel: info
+mtu: 1500
+
+# Bind outbound proxy connections to a specific interface if required.
+# interface: eth0
+
+# Optional routing hooks. tun2socks does not change system routes by default.
+# tun-pre-up: ip tuntap add mode tun dev tun0
+# tun-post-up: ip address add 198.18.0.1/15 dev tun0 && ip link set dev tun0 up
+
+# Optional statistics endpoint. Avoid exposing it on untrusted interfaces.
+# restapi: 127.0.0.1:6060
+
+# Optional UDP session timeout.
+# udp-timeout: 1m

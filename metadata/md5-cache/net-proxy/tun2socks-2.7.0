@@ -1,0 +1,11 @@
+BDEPEND=app-arch/unzip
+DEFINED_PHASES=install postinst
+DESCRIPTION=Userspace network stack for proxying TUN traffic
+EAPI=8
+HOMEPAGE=https://github.com/xjasonlyu/tun2socks
+KEYWORDS=-* amd64 arm64
+LICENSE=MIT
+RESTRICT=strip
+SLOT=0
+SRC_URI=amd64? ( https://github.com/xjasonlyu/tun2socks/releases/download/v2.7.0/tun2socks-linux-amd64.zip -> tun2socks-2.7.0-linux-amd64.zip ) arm64? ( https://github.com/xjasonlyu/tun2socks/releases/download/v2.7.0/tun2socks-linux-arm64.zip -> tun2socks-2.7.0-linux-arm64.zip )
+_md5_=a6b67ff4d28a106d7e8ffa439f9d319b

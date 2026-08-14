@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<name>Ilya Merkulov</name>
+		<email>iamerkulov@avito.ru</email>
+	</maintainer>
+	<longdescription>
+		tun2socks routes network traffic from a TUN device through SOCKS,
+		HTTP, Shadowsocks, and other supported proxy protocols using a
+		userspace network stack.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">xjasonlyu/tun2socks</remote-id>
+	</upstream>
+</pkgmetadata>
