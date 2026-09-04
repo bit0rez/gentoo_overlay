@@ -51,7 +51,11 @@ RDEPEND="
 	x11-misc/xdg-utils
 "
 
-QA_PREBUILT="usr/lib/chatgpt/.*"
+QA_PREBUILT="usr/lib/chatgpt/*"
+REQUIRES_EXCLUDE="
+	usr/lib/chatgpt/libqt*_shim.so
+	usr/lib/chatgpt/resources/*/prebuilds/*
+"
 
 src_install() {
 	dodir /usr/lib
