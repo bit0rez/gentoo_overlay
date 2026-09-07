@@ -6,7 +6,7 @@ EAPI=8
 inherit desktop unpacker xdg
 
 DESCRIPTION="Fast, lightweight, and fully autonomous AI assistant"
-HOMEPAGE="https://zeroclawlabs.ai https://github.com/zeroclaw-labs/zeroclaw"
+HOMEPAGE="https://zeroclaw.com https://github.com/zeroclaw-labs/zeroclaw"
 SRC_URI="
 	amd64? (
 		elibc_glibc? (
@@ -59,11 +59,12 @@ RDEPEND="
 QA_PREBUILT="
 	usr/bin/zeroclaw
 	usr/bin/zerocode
+	usr/bin/zerorelay
 	usr/bin/zeroclaw-desktop
 "
 
 src_install() {
-	dobin zeroclaw zerocode
+	dobin zeroclaw zerocode zerorelay
 
 	insinto /usr/share/zeroclawlabs
 	doins -r web
