@@ -32,7 +32,8 @@ RDEPEND="
 	net-print/cups
 	sys-apps/dbus
 	sys-apps/systemd-utils
-	sys-libs/glibc
+	>=sys-libs/glibc-2.35
+	sys-devel/gcc:*[cxx]
 	virtual/secret-service
 	x11-libs/cairo
 	x11-libs/gdk-pixbuf:2
