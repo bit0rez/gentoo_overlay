@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<name>Ilya Merkulov</name>
+		<email>iamerkulov@avito.ru</email>
+	</maintainer>
+	<longdescription>
+		RTK (Rust Token Killer) is a command-line proxy that filters and
+		compresses command output before it reaches an LLM context.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">rtk-ai/rtk</remote-id>
+	</upstream>
+</pkgmetadata>
