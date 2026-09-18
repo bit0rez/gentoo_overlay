@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<name>Ilya Merkulov</name>
+		<email>iamerkulov@avito.ru</email>
+	</maintainer>
+	<longdescription>
+		Obsidian provides a desktop workspace for organizing linked notes,
+		attachments, and other files stored in a local vault.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">obsidianmd/obsidian-releases</remote-id>
+	</upstream>
+</pkgmetadata>
