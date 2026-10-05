@@ -19,9 +19,12 @@
 | `dev-db/clickhouse-client` | Клиент ClickHouse |
 | `dev-db/clickhouse-common-static` | Статические компоненты ClickHouse |
 | `dev-util/chatgpt-bin` | Официальное desktop-приложение ChatGPT с поддержкой Codex |
+| `dev-util/codex` | Codex CLI со сборкой из исходников |
+| `dev-util/codex-bin` | Готовый бинарный пакет Codex CLI из официальных GitHub Releases |
 | `media-sound/yandex-music` | Официальное desktop-приложение Яндекс Музыки |
 | `net-im/max` | Официальное desktop-приложение MAX |
 | `net-proxy/tun2socks` | Перенаправление трафика TUN-интерфейса через прокси в userspace |
+| `virtual/codex` | Выбор бинарного Codex CLI или сборки из исходников через USE-флаг `binary` |
 
 Системные пользователь и группа для QMD устанавливаются автоматически через
 `acct-user/qmd` и `acct-group/qmd`.
@@ -109,6 +112,31 @@ USE=desktop emerge --ask app-misc/zeroclaw
 Стабильные keyword'ы определены непосредственно в ebuild. Для архитектур,
 помеченных `~arch`, потребуется соответствующая запись в
 `/etc/portage/package.accept_keywords`.
+
+Для Codex CLI установите `virtual/codex`. По умолчанию включён USE-флаг
+`binary`, выбирающий `dev-util/codex-bin`; `-binary` выбирает `dev-util/codex`:
+
+```sh
+emerge --ask virtual/codex
+USE="-binary" emerge --ask virtual/codex
+```
+
+Для постоянного выбора сборки из исходников добавьте `virtual/codex -binary`
+в `/etc/portage/package.use`. Пакеты доступны с keyword'ами `~amd64` и
+`~arm64`. Полный бинарный пакет требует glibc >= 2.38 для включённых
+голосового компонента и zsh. Исходная и бинарная реализации конфликтуют,
+поскольку устанавливают одинаковые команды и каталог ресурсов.
+
+Если реализация ранее была установлена напрямую и записана в `@world`,
+перед переходом на виртуальный пакет уберите её из выбранных пакетов:
+
+```sh
+emerge --deselect dev-util/codex dev-util/codex-bin
+emerge --ask virtual/codex
+```
+
+`--deselect` не удаляет установленный пакет; Portage заменит конфликтующую
+реализацию при установке выбранного варианта через `virtual/codex`.
 
 ## QMD MCP
 
