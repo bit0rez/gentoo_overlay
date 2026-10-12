@@ -1,0 +1,12 @@
+DEFINED_PHASES=install
+DESCRIPTION=OpenAI Codex CLI coding agent (prebuilt package)
+EAPI=8
+HOMEPAGE=https://github.com/openai/codex
+KEYWORDS=-* ~amd64 ~arm64
+LICENSE=Apache-2.0 Apache-2.0-with-LLVM-exceptions BSD-2 BSD Boost-1.0 CC0-1.0 CDLA-Permissive-2.0 ISC LGPL-2+ MIT MPL-2.0 Unicode-3.0 ZLIB ZSH
+RDEPEND=!dev-util/codex >=sys-libs/glibc-2.38 sys-libs/ncurses:0/6[tinfo] arm64? ( sys-devel/gcc:* )
+REQUIRED_USE=elibc_glibc
+RESTRICT=strip
+SLOT=0
+SRC_URI=amd64? ( https://github.com/openai/codex/releases/download/rust-v0.162.1/codex-package-x86_64-unknown-linux-musl.tar.gz -> codex-bin-0.162.1-amd64.tar.gz ) arm64? ( https://github.com/openai/codex/releases/download/rust-v0.162.1/codex-package-aarch64-unknown-linux-musl.tar.gz -> codex-bin-0.162.1-arm64.tar.gz )
+_md5_=06ebb0b4efebd52de8de31526029baf7
