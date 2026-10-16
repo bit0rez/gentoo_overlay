@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<name>Ilya Merkulov</name>
+		<email>iamerkulov@avito.ru</email>
+	</maintainer>
+	<longdescription>
+		Restish is a command-line HTTP client that discovers OpenAPI descriptions,
+		generates API-aware commands, manages authentication and profiles,
+		and filters and formats structured responses.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">rest-sh/restish</remote-id>
+	</upstream>
+</pkgmetadata>
