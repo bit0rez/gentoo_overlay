@@ -18,7 +18,7 @@ S=${WORKDIR}
 # Includes licenses of the statically linked Go dependencies.
 LICENSE="Apache-2.0 BSD BSD-2 MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~arm64"
+KEYWORDS="amd64 arm64"
 
 RESTRICT="strip"
 

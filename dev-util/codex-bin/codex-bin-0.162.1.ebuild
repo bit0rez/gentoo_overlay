@@ -23,7 +23,7 @@ LICENSE="
 	CC0-1.0 CDLA-Permissive-2.0 ISC LGPL-2+ MIT MPL-2.0 Unicode-3.0 ZLIB ZSH
 "
 SLOT="0"
-KEYWORDS="-* ~amd64 ~arm64"
+KEYWORDS="-* amd64 arm64"
 REQUIRED_USE="elibc_glibc"
 RESTRICT="strip"
 

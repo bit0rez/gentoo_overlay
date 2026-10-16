@@ -26,7 +26,7 @@ S=${WORKDIR}
 # Upstream does not provide a free-software license with the binary release.
 LICENSE="all-rights-reserved"
 SLOT="0"
-KEYWORDS="~amd64 ~arm64 ~x86"
+KEYWORDS="amd64 arm64 x86"
 IUSE="cpu_flags_x86_sse2"
 REQUIRED_USE="x86? ( cpu_flags_x86_sse2 )"
 

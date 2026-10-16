@@ -83,7 +83,7 @@ LICENSE+="
 	CC0-1.0 CDLA-Permissive-2.0 ISC MIT MPL-2.0 Unicode-3.0 ZLIB
 "
 SLOT="0"
-KEYWORDS="-* ~amd64 ~arm64"
+KEYWORDS="-* amd64 arm64"
 # Tests fail due to ring crate conflicts with system OpenSSL
 RESTRICT="test"
 

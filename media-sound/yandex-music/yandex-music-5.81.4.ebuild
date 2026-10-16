@@ -8,7 +8,7 @@ DESCRIPTION="Official Yandex Music Player"
 SRC_URI="https://music-desktop-application.s3.yandex.net/stable/Yandex_Music_amd64_${PV}.deb"
 HOMEPAGE="https://music.yandex.ru/"
 
-KEYWORDS="amd64 ~x86"
+KEYWORDS="amd64 x86"
 SLOT="0"
 LICENSE="MIT"
 

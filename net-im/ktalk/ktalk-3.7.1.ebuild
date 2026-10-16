@@ -13,7 +13,7 @@ S=${WORKDIR}
 # The product and bundled NDI runtime are distributed under proprietary terms.
 LICENSE="all-rights-reserved"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="amd64"
 IUSE="suid"
 REQUIRED_USE="elibc_glibc"
 
