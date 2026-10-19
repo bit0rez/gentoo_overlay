@@ -1,0 +1,10 @@
+DEFINED_PHASES=install postinst
+DESCRIPTION=CLI proxy that reduces LLM token usage by filtering command output
+EAPI=8
+HOMEPAGE=https://www.rtk-ai.app https://github.com/rtk-ai/rtk
+KEYWORDS=-* amd64
+LICENSE=Apache-2.0 rtk-engine-BSL-1.1
+RESTRICT=strip
+SLOT=0
+SRC_URI=amd64? ( https://github.com/rtk-ai/rtk/releases/download/v1.0.1/rtk-x86_64-unknown-linux-musl.tar.gz -> rtk-1.0.1-amd64.tar.gz )
+_md5_=d69121583545c05e0c53632ce506d179
