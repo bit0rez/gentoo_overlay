@@ -1,0 +1,376 @@
+# Copyright 2026 Ilya Merkulov
+# Distributed under the terms of the GNU General Public License v2
+
+EAPI=8
+
+DESCRIPTION="Local hybrid search engine and MCP server for Markdown documents"
+HOMEPAGE="https://github.com/tobi/qmd"
+# Published JavaScript and pinned runtime dependencies. Native addons use N-API;
+# only the CPU backend for Linux amd64 is installed (no GPU downloads).
+SRC_URI="
+	https://registry.npmjs.org/@tobilu/qmd/-/qmd-${PV}.tgz
+	https://registry.npmjs.org/@huggingface/jinja/-/jinja-0.5.10.tgz
+		-> qmd-npm-@huggingface__jinja__-__jinja-0.5.10.tgz
+	https://registry.npmjs.org/@isaacs/fs-minipass/-/fs-minipass-4.0.1.tgz
+		-> qmd-npm-@isaacs__fs-minipass__-__fs-minipass-4.0.1.tgz
+	https://registry.npmjs.org/@kwsites/file-exists/-/file-exists-1.1.1.tgz
+		-> qmd-npm-@kwsites__file-exists__-__file-exists-1.1.1.tgz
+	https://registry.npmjs.org/@kwsites/promise-deferred/-/promise-deferred-1.1.1.tgz
+		-> qmd-npm-@kwsites__promise-deferred__-__promise-deferred-1.1.1.tgz
+	https://registry.npmjs.org/@modelcontextprotocol/core/-/core-2.0.0.tgz
+		-> qmd-npm-@modelcontextprotocol__core__-__core-2.0.0.tgz
+	https://registry.npmjs.org/@modelcontextprotocol/server/-/server-2.0.0.tgz
+		-> qmd-npm-@modelcontextprotocol__server__-__server-2.0.0.tgz
+	https://registry.npmjs.org/@node-llama-cpp/linux-x64/-/linux-x64-3.20.0.tgz
+		-> qmd-npm-@node-llama-cpp__linux-x64__-__linux-x64-3.20.0.tgz
+	https://registry.npmjs.org/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz
+		-> qmd-npm-@nodelib__fs.scandir__-__fs.scandir-2.1.5.tgz
+	https://registry.npmjs.org/@nodelib/fs.stat/-/fs.stat-2.0.5.tgz
+		-> qmd-npm-@nodelib__fs.stat__-__fs.stat-2.0.5.tgz
+	https://registry.npmjs.org/@nodelib/fs.walk/-/fs.walk-1.2.8.tgz
+		-> qmd-npm-@nodelib__fs.walk__-__fs.walk-1.2.8.tgz
+	https://registry.npmjs.org/@simple-git/args-pathspec/-/args-pathspec-1.0.4.tgz
+		-> qmd-npm-@simple-git__args-pathspec__-__args-pathspec-1.0.4.tgz
+	https://registry.npmjs.org/@simple-git/argv-parser/-/argv-parser-1.1.1.tgz
+		-> qmd-npm-@simple-git__argv-parser__-__argv-parser-1.1.1.tgz
+	https://registry.npmjs.org/@tinyhttp/content-disposition/-/content-disposition-2.2.4.tgz
+		-> qmd-npm-@tinyhttp__content-disposition__-__content-disposition-2.2.4.tgz
+	https://registry.npmjs.org/ansi-escapes/-/ansi-escapes-6.2.1.tgz
+		-> qmd-npm-ansi-escapes__-__ansi-escapes-6.2.1.tgz
+	https://registry.npmjs.org/ansi-regex/-/ansi-regex-5.0.1.tgz
+		-> qmd-npm-ansi-regex__-__ansi-regex-5.0.1.tgz
+	https://registry.npmjs.org/ansi-regex/-/ansi-regex-6.4.0.tgz
+		-> qmd-npm-ansi-regex__-__ansi-regex-6.4.0.tgz
+	https://registry.npmjs.org/ansi-styles/-/ansi-styles-4.3.0.tgz
+		-> qmd-npm-ansi-styles__-__ansi-styles-4.3.0.tgz
+	https://registry.npmjs.org/ansi-styles/-/ansi-styles-6.2.3.tgz
+		-> qmd-npm-ansi-styles__-__ansi-styles-6.2.3.tgz
+	https://registry.npmjs.org/async-retry/-/async-retry-1.3.3.tgz
+		-> qmd-npm-async-retry__-__async-retry-1.3.3.tgz
+	https://registry.npmjs.org/better-sqlite3/-/better-sqlite3-13.0.3.tgz
+		-> qmd-npm-better-sqlite3__-__better-sqlite3-13.0.3.tgz
+	https://registry.npmjs.org/braces/-/braces-3.0.3.tgz
+		-> qmd-npm-braces__-__braces-3.0.3.tgz
+	https://registry.npmjs.org/bytes/-/bytes-3.1.2.tgz
+		-> qmd-npm-bytes__-__bytes-3.1.2.tgz
+	https://registry.npmjs.org/chalk/-/chalk-5.6.2.tgz
+		-> qmd-npm-chalk__-__chalk-5.6.2.tgz
+	https://registry.npmjs.org/chmodrp/-/chmodrp-1.0.2.tgz
+		-> qmd-npm-chmodrp__-__chmodrp-1.0.2.tgz
+	https://registry.npmjs.org/chownr/-/chownr-3.0.0.tgz
+		-> qmd-npm-chownr__-__chownr-3.0.0.tgz
+	https://registry.npmjs.org/ci-info/-/ci-info-4.4.0.tgz
+		-> qmd-npm-ci-info__-__ci-info-4.4.0.tgz
+	https://registry.npmjs.org/cli-cursor/-/cli-cursor-5.0.0.tgz
+		-> qmd-npm-cli-cursor__-__cli-cursor-5.0.0.tgz
+	https://registry.npmjs.org/cli-spinners/-/cli-spinners-2.9.2.tgz
+		-> qmd-npm-cli-spinners__-__cli-spinners-2.9.2.tgz
+	https://registry.npmjs.org/cli-spinners/-/cli-spinners-3.4.0.tgz
+		-> qmd-npm-cli-spinners__-__cli-spinners-3.4.0.tgz
+	https://registry.npmjs.org/cliui/-/cliui-8.0.1.tgz
+		-> qmd-npm-cliui__-__cliui-8.0.1.tgz
+	https://registry.npmjs.org/cmake-js/-/cmake-js-8.0.0.tgz
+		-> qmd-npm-cmake-js__-__cmake-js-8.0.0.tgz
+	https://registry.npmjs.org/color-convert/-/color-convert-2.0.1.tgz
+		-> qmd-npm-color-convert__-__color-convert-2.0.1.tgz
+	https://registry.npmjs.org/color-name/-/color-name-1.1.4.tgz
+		-> qmd-npm-color-name__-__color-name-1.1.4.tgz
+	https://registry.npmjs.org/commander/-/commander-10.0.1.tgz
+		-> qmd-npm-commander__-__commander-10.0.1.tgz
+	https://registry.npmjs.org/cross-spawn/-/cross-spawn-7.0.6.tgz
+		-> qmd-npm-cross-spawn__-__cross-spawn-7.0.6.tgz
+	https://registry.npmjs.org/debug/-/debug-4.4.3.tgz
+		-> qmd-npm-debug__-__debug-4.4.3.tgz
+	https://registry.npmjs.org/deep-extend/-/deep-extend-0.6.0.tgz
+		-> qmd-npm-deep-extend__-__deep-extend-0.6.0.tgz
+	https://registry.npmjs.org/emoji-regex/-/emoji-regex-10.6.0.tgz
+		-> qmd-npm-emoji-regex__-__emoji-regex-10.6.0.tgz
+	https://registry.npmjs.org/emoji-regex/-/emoji-regex-8.0.0.tgz
+		-> qmd-npm-emoji-regex__-__emoji-regex-8.0.0.tgz
+	https://registry.npmjs.org/env-var/-/env-var-7.5.0.tgz
+		-> qmd-npm-env-var__-__env-var-7.5.0.tgz
+	https://registry.npmjs.org/escalade/-/escalade-3.2.0.tgz
+		-> qmd-npm-escalade__-__escalade-3.2.0.tgz
+	https://registry.npmjs.org/eventemitter3/-/eventemitter3-5.0.4.tgz
+		-> qmd-npm-eventemitter3__-__eventemitter3-5.0.4.tgz
+	https://registry.npmjs.org/fast-glob/-/fast-glob-3.3.3.tgz
+		-> qmd-npm-fast-glob__-__fast-glob-3.3.3.tgz
+	https://registry.npmjs.org/fastq/-/fastq-1.20.3.tgz
+		-> qmd-npm-fastq__-__fastq-1.20.3.tgz
+	https://registry.npmjs.org/filename-reserved-regex/-/filename-reserved-regex-3.0.0.tgz
+		-> qmd-npm-filename-reserved-regex__-__filename-reserved-regex-3.0.0.tgz
+	https://registry.npmjs.org/filenamify/-/filenamify-6.0.0.tgz
+		-> qmd-npm-filenamify__-__filenamify-6.0.0.tgz
+	https://registry.npmjs.org/fill-range/-/fill-range-7.1.1.tgz
+		-> qmd-npm-fill-range__-__fill-range-7.1.1.tgz
+	https://registry.npmjs.org/fs-extra/-/fs-extra-11.4.1.tgz
+		-> qmd-npm-fs-extra__-__fs-extra-11.4.1.tgz
+	https://registry.npmjs.org/get-caller-file/-/get-caller-file-2.0.5.tgz
+		-> qmd-npm-get-caller-file__-__get-caller-file-2.0.5.tgz
+	https://registry.npmjs.org/get-east-asian-width/-/get-east-asian-width-1.7.0.tgz
+		-> qmd-npm-get-east-asian-width__-__get-east-asian-width-1.7.0.tgz
+	https://registry.npmjs.org/glob-parent/-/glob-parent-5.1.2.tgz
+		-> qmd-npm-glob-parent__-__glob-parent-5.1.2.tgz
+	https://registry.npmjs.org/graceful-fs/-/graceful-fs-4.2.11.tgz
+		-> qmd-npm-graceful-fs__-__graceful-fs-4.2.11.tgz
+	https://registry.npmjs.org/ignore/-/ignore-7.0.13.tgz
+		-> qmd-npm-ignore__-__ignore-7.0.13.tgz
+	https://registry.npmjs.org/ini/-/ini-1.3.8.tgz
+		-> qmd-npm-ini__-__ini-1.3.8.tgz
+	https://registry.npmjs.org/ipull/-/ipull-3.9.5.tgz
+		-> qmd-npm-ipull__-__ipull-3.9.5.tgz
+	https://registry.npmjs.org/is-extglob/-/is-extglob-2.1.1.tgz
+		-> qmd-npm-is-extglob__-__is-extglob-2.1.1.tgz
+	https://registry.npmjs.org/is-fullwidth-code-point/-/is-fullwidth-code-point-3.0.0.tgz
+		-> qmd-npm-is-fullwidth-code-point__-__is-fullwidth-code-point-3.0.0.tgz
+	https://registry.npmjs.org/is-fullwidth-code-point/-/is-fullwidth-code-point-5.1.0.tgz
+		-> qmd-npm-is-fullwidth-code-point__-__is-fullwidth-code-point-5.1.0.tgz
+	https://registry.npmjs.org/is-glob/-/is-glob-4.0.3.tgz
+		-> qmd-npm-is-glob__-__is-glob-4.0.3.tgz
+	https://registry.npmjs.org/is-interactive/-/is-interactive-2.0.0.tgz
+		-> qmd-npm-is-interactive__-__is-interactive-2.0.0.tgz
+	https://registry.npmjs.org/is-number/-/is-number-7.0.0.tgz
+		-> qmd-npm-is-number__-__is-number-7.0.0.tgz
+	https://registry.npmjs.org/is-unicode-supported/-/is-unicode-supported-2.1.0.tgz
+		-> qmd-npm-is-unicode-supported__-__is-unicode-supported-2.1.0.tgz
+	https://registry.npmjs.org/isexe/-/isexe-2.0.0.tgz
+		-> qmd-npm-isexe__-__isexe-2.0.0.tgz
+	https://registry.npmjs.org/isexe/-/isexe-4.0.0.tgz
+		-> qmd-npm-isexe__-__isexe-4.0.0.tgz
+	https://registry.npmjs.org/jsonfile/-/jsonfile-6.2.1.tgz
+		-> qmd-npm-jsonfile__-__jsonfile-6.2.1.tgz
+	https://registry.npmjs.org/lifecycle-utils/-/lifecycle-utils-2.1.0.tgz
+		-> qmd-npm-lifecycle-utils__-__lifecycle-utils-2.1.0.tgz
+	https://registry.npmjs.org/lifecycle-utils/-/lifecycle-utils-4.5.2.tgz
+		-> qmd-npm-lifecycle-utils__-__lifecycle-utils-4.5.2.tgz
+	https://registry.npmjs.org/lodash.debounce/-/lodash.debounce-4.0.8.tgz
+		-> qmd-npm-lodash.debounce__-__lodash.debounce-4.0.8.tgz
+	https://registry.npmjs.org/log-symbols/-/log-symbols-7.0.1.tgz
+		-> qmd-npm-log-symbols__-__log-symbols-7.0.1.tgz
+	https://registry.npmjs.org/lowdb/-/lowdb-7.0.1.tgz
+		-> qmd-npm-lowdb__-__lowdb-7.0.1.tgz
+	https://registry.npmjs.org/merge2/-/merge2-1.4.1.tgz
+		-> qmd-npm-merge2__-__merge2-1.4.1.tgz
+	https://registry.npmjs.org/micromatch/-/micromatch-4.0.8.tgz
+		-> qmd-npm-micromatch__-__micromatch-4.0.8.tgz
+	https://registry.npmjs.org/mimic-function/-/mimic-function-5.0.1.tgz
+		-> qmd-npm-mimic-function__-__mimic-function-5.0.1.tgz
+	https://registry.npmjs.org/minimist/-/minimist-1.2.8.tgz
+		-> qmd-npm-minimist__-__minimist-1.2.8.tgz
+	https://registry.npmjs.org/minipass/-/minipass-7.1.3.tgz
+		-> qmd-npm-minipass__-__minipass-7.1.3.tgz
+	https://registry.npmjs.org/minizlib/-/minizlib-3.1.0.tgz
+		-> qmd-npm-minizlib__-__minizlib-3.1.0.tgz
+	https://registry.npmjs.org/ms/-/ms-2.1.3.tgz
+		-> qmd-npm-ms__-__ms-2.1.3.tgz
+	https://registry.npmjs.org/nanoid/-/nanoid-5.1.16.tgz
+		-> qmd-npm-nanoid__-__nanoid-5.1.16.tgz
+	https://registry.npmjs.org/node-addon-api/-/node-addon-api-8.9.2.tgz
+		-> qmd-npm-node-addon-api__-__node-addon-api-8.9.2.tgz
+	https://registry.npmjs.org/node-api-headers/-/node-api-headers-1.9.0.tgz
+		-> qmd-npm-node-api-headers__-__node-api-headers-1.9.0.tgz
+	https://registry.npmjs.org/node-gyp-build/-/node-gyp-build-4.8.4.tgz
+		-> qmd-npm-node-gyp-build__-__node-gyp-build-4.8.4.tgz
+	https://registry.npmjs.org/node-llama-cpp/-/node-llama-cpp-3.20.0.tgz
+		-> qmd-npm-node-llama-cpp__-__node-llama-cpp-3.20.0.tgz
+	https://registry.npmjs.org/onetime/-/onetime-7.0.0.tgz
+		-> qmd-npm-onetime__-__onetime-7.0.0.tgz
+	https://registry.npmjs.org/ora/-/ora-9.4.1.tgz
+		-> qmd-npm-ora__-__ora-9.4.1.tgz
+	https://registry.npmjs.org/parse-ms/-/parse-ms-3.0.0.tgz
+		-> qmd-npm-parse-ms__-__parse-ms-3.0.0.tgz
+	https://registry.npmjs.org/parse-ms/-/parse-ms-4.0.0.tgz
+		-> qmd-npm-parse-ms__-__parse-ms-4.0.0.tgz
+	https://registry.npmjs.org/path-key/-/path-key-3.1.1.tgz
+		-> qmd-npm-path-key__-__path-key-3.1.1.tgz
+	https://registry.npmjs.org/picomatch/-/picomatch-2.3.2.tgz
+		-> qmd-npm-picomatch__-__picomatch-2.3.2.tgz
+	https://registry.npmjs.org/picomatch/-/picomatch-4.0.5.tgz
+		-> qmd-npm-picomatch__-__picomatch-4.0.5.tgz
+	https://registry.npmjs.org/pretty-bytes/-/pretty-bytes-6.1.1.tgz
+		-> qmd-npm-pretty-bytes__-__pretty-bytes-6.1.1.tgz
+	https://registry.npmjs.org/pretty-ms/-/pretty-ms-8.0.0.tgz
+		-> qmd-npm-pretty-ms__-__pretty-ms-8.0.0.tgz
+	https://registry.npmjs.org/pretty-ms/-/pretty-ms-9.3.1.tgz
+		-> qmd-npm-pretty-ms__-__pretty-ms-9.3.1.tgz
+	https://registry.npmjs.org/proper-lockfile/-/proper-lockfile-4.1.2.tgz
+		-> qmd-npm-proper-lockfile__-__proper-lockfile-4.1.2.tgz
+	https://registry.npmjs.org/queue-microtask/-/queue-microtask-1.2.3.tgz
+		-> qmd-npm-queue-microtask__-__queue-microtask-1.2.3.tgz
+	https://registry.npmjs.org/rc/-/rc-1.2.8.tgz
+		-> qmd-npm-rc__-__rc-1.2.8.tgz
+	https://registry.npmjs.org/require-directory/-/require-directory-2.1.1.tgz
+		-> qmd-npm-require-directory__-__require-directory-2.1.1.tgz
+	https://registry.npmjs.org/restore-cursor/-/restore-cursor-5.1.0.tgz
+		-> qmd-npm-restore-cursor__-__restore-cursor-5.1.0.tgz
+	https://registry.npmjs.org/retry/-/retry-0.12.0.tgz
+		-> qmd-npm-retry__-__retry-0.12.0.tgz
+	https://registry.npmjs.org/retry/-/retry-0.13.1.tgz
+		-> qmd-npm-retry__-__retry-0.13.1.tgz
+	https://registry.npmjs.org/reusify/-/reusify-1.1.0.tgz
+		-> qmd-npm-reusify__-__reusify-1.1.0.tgz
+	https://registry.npmjs.org/run-parallel/-/run-parallel-1.2.0.tgz
+		-> qmd-npm-run-parallel__-__run-parallel-1.2.0.tgz
+	https://registry.npmjs.org/semver/-/semver-7.8.5.tgz
+		-> qmd-npm-semver__-__semver-7.8.5.tgz
+	https://registry.npmjs.org/shebang-command/-/shebang-command-2.0.0.tgz
+		-> qmd-npm-shebang-command__-__shebang-command-2.0.0.tgz
+	https://registry.npmjs.org/shebang-regex/-/shebang-regex-3.0.0.tgz
+		-> qmd-npm-shebang-regex__-__shebang-regex-3.0.0.tgz
+	https://registry.npmjs.org/signal-exit/-/signal-exit-3.0.7.tgz
+		-> qmd-npm-signal-exit__-__signal-exit-3.0.7.tgz
+	https://registry.npmjs.org/signal-exit/-/signal-exit-4.1.0.tgz
+		-> qmd-npm-signal-exit__-__signal-exit-4.1.0.tgz
+	https://registry.npmjs.org/simple-git/-/simple-git-3.36.0.tgz
+		-> qmd-npm-simple-git__-__simple-git-3.36.0.tgz
+	https://registry.npmjs.org/sleep-promise/-/sleep-promise-9.1.0.tgz
+		-> qmd-npm-sleep-promise__-__sleep-promise-9.1.0.tgz
+	https://registry.npmjs.org/slice-ansi/-/slice-ansi-7.1.2.tgz
+		-> qmd-npm-slice-ansi__-__slice-ansi-7.1.2.tgz
+	https://registry.npmjs.org/slice-ansi/-/slice-ansi-8.0.0.tgz
+		-> qmd-npm-slice-ansi__-__slice-ansi-8.0.0.tgz
+	https://registry.npmjs.org/sqlite-vec-linux-x64/-/sqlite-vec-linux-x64-0.1.9.tgz
+		-> qmd-npm-sqlite-vec-linux-x64__-__sqlite-vec-linux-x64-0.1.9.tgz
+	https://registry.npmjs.org/sqlite-vec/-/sqlite-vec-0.1.9.tgz
+		-> qmd-npm-sqlite-vec__-__sqlite-vec-0.1.9.tgz
+	https://registry.npmjs.org/stdin-discarder/-/stdin-discarder-0.3.2.tgz
+		-> qmd-npm-stdin-discarder__-__stdin-discarder-0.3.2.tgz
+	https://registry.npmjs.org/stdout-update/-/stdout-update-4.0.1.tgz
+		-> qmd-npm-stdout-update__-__stdout-update-4.0.1.tgz
+	https://registry.npmjs.org/steno/-/steno-4.0.2.tgz
+		-> qmd-npm-steno__-__steno-4.0.2.tgz
+	https://registry.npmjs.org/string-width/-/string-width-4.2.3.tgz
+		-> qmd-npm-string-width__-__string-width-4.2.3.tgz
+	https://registry.npmjs.org/string-width/-/string-width-7.2.0.tgz
+		-> qmd-npm-string-width__-__string-width-7.2.0.tgz
+	https://registry.npmjs.org/string-width/-/string-width-8.3.0.tgz
+		-> qmd-npm-string-width__-__string-width-8.3.0.tgz
+	https://registry.npmjs.org/strip-ansi/-/strip-ansi-6.0.1.tgz
+		-> qmd-npm-strip-ansi__-__strip-ansi-6.0.1.tgz
+	https://registry.npmjs.org/strip-ansi/-/strip-ansi-7.2.0.tgz
+		-> qmd-npm-strip-ansi__-__strip-ansi-7.2.0.tgz
+	https://registry.npmjs.org/strip-json-comments/-/strip-json-comments-2.0.1.tgz
+		-> qmd-npm-strip-json-comments__-__strip-json-comments-2.0.1.tgz
+	https://registry.npmjs.org/tar/-/tar-7.5.22.tgz
+		-> qmd-npm-tar__-__tar-7.5.22.tgz
+	https://registry.npmjs.org/to-regex-range/-/to-regex-range-5.0.1.tgz
+		-> qmd-npm-to-regex-range__-__to-regex-range-5.0.1.tgz
+	https://registry.npmjs.org/tree-sitter-go/-/tree-sitter-go-0.25.0.tgz
+		-> qmd-npm-tree-sitter-go__-__tree-sitter-go-0.25.0.tgz
+	https://registry.npmjs.org/tree-sitter-javascript/-/tree-sitter-javascript-0.23.1.tgz
+		-> qmd-npm-tree-sitter-javascript__-__tree-sitter-javascript-0.23.1.tgz
+	https://registry.npmjs.org/tree-sitter-python/-/tree-sitter-python-0.25.0.tgz
+		-> qmd-npm-tree-sitter-python__-__tree-sitter-python-0.25.0.tgz
+	https://registry.npmjs.org/tree-sitter-rust/-/tree-sitter-rust-0.24.0.tgz
+		-> qmd-npm-tree-sitter-rust__-__tree-sitter-rust-0.24.0.tgz
+	https://registry.npmjs.org/tree-sitter-typescript/-/tree-sitter-typescript-0.23.2.tgz
+		-> qmd-npm-tree-sitter-typescript__-__tree-sitter-typescript-0.23.2.tgz
+	https://registry.npmjs.org/universalify/-/universalify-2.0.1.tgz
+		-> qmd-npm-universalify__-__universalify-2.0.1.tgz
+	https://registry.npmjs.org/url-join/-/url-join-4.0.1.tgz
+		-> qmd-npm-url-join__-__url-join-4.0.1.tgz
+	https://registry.npmjs.org/validate-npm-package-name/-/validate-npm-package-name-7.0.2.tgz
+		-> qmd-npm-validate-npm-package-name__-__validate-npm-package-name-7.0.2.tgz
+	https://registry.npmjs.org/web-tree-sitter/-/web-tree-sitter-0.26.12.tgz
+		-> qmd-npm-web-tree-sitter__-__web-tree-sitter-0.26.12.tgz
+	https://registry.npmjs.org/which/-/which-2.0.2.tgz
+		-> qmd-npm-which__-__which-2.0.2.tgz
+	https://registry.npmjs.org/which/-/which-6.0.1.tgz
+		-> qmd-npm-which__-__which-6.0.1.tgz
+	https://registry.npmjs.org/wrap-ansi/-/wrap-ansi-7.0.0.tgz
+		-> qmd-npm-wrap-ansi__-__wrap-ansi-7.0.0.tgz
+	https://registry.npmjs.org/y18n/-/y18n-5.0.8.tgz
+		-> qmd-npm-y18n__-__y18n-5.0.8.tgz
+	https://registry.npmjs.org/yallist/-/yallist-5.0.0.tgz
+		-> qmd-npm-yallist__-__yallist-5.0.0.tgz
+	https://registry.npmjs.org/yaml/-/yaml-2.9.0.tgz
+		-> qmd-npm-yaml__-__yaml-2.9.0.tgz
+	https://registry.npmjs.org/yargs-parser/-/yargs-parser-21.1.1.tgz
+		-> qmd-npm-yargs-parser__-__yargs-parser-21.1.1.tgz
+	https://registry.npmjs.org/yargs/-/yargs-17.7.3.tgz
+		-> qmd-npm-yargs__-__yargs-17.7.3.tgz
+	https://registry.npmjs.org/yoctocolors/-/yoctocolors-2.2.0.tgz
+		-> qmd-npm-yoctocolors__-__yoctocolors-2.2.0.tgz
+	https://registry.npmjs.org/zod/-/zod-4.2.1.tgz
+		-> qmd-npm-zod__-__zod-4.2.1.tgz
+"
+S="${WORKDIR}/package"
+
+LICENSE="MIT ISC BlueOak-1.0.0"
+SLOT="0"
+KEYWORDS="amd64"
+RESTRICT="mirror strip test"
+
+RDEPEND="
+	>=net-libs/nodejs-22
+	>=sys-libs/glibc-2.34
+	>=sys-devel/gcc-12:*[cxx]
+"
+BDEPEND=">=net-libs/nodejs-22[npm]"
+
+QA_PREBUILT="usr/lib/qmd/node_modules/*"
+
+src_unpack() {
+	unpack "${P}.tgz"
+}
+
+src_prepare() {
+	default
+	cp "${FILESDIR}/${P}-package-lock.json" package-lock.json || die
+
+	# npm reads pinned local tarballs directly; no registry access or lifecycle
+	# scripts are needed. Manifest verifies the archive sizes and hashes.
+	# Promote the CPU and sqlite-vec addons to required deps.
+	DISTDIR="${DISTDIR}" node --input-type=module <<-'JS' || die
+		import fs from "node:fs";
+		const pkg = JSON.parse(fs.readFileSync("package.json", "utf8"));
+		delete pkg.devDependencies;
+		delete pkg.peerDependencies;
+		delete pkg.optionalDependencies;
+		pkg.dependencies["@node-llama-cpp/linux-x64"] = "3.20.0";
+		pkg.dependencies["sqlite-vec-linux-x64"] = "0.1.9";
+		fs.writeFileSync("package.json", JSON.stringify(pkg, null, 2));
+		const lock = JSON.parse(fs.readFileSync("package-lock.json", "utf8"));
+		for (const [path, entry] of Object.entries(lock.packages)) {
+			if (!path || entry.optional || entry.dev) continue;
+			const pkgName = path.split("node_modules/").pop();
+			const baseName = pkgName.split("/").pop();
+			const name = "qmd-npm-" + pkgName.replaceAll("/", "__")
+				+ "__-__" + baseName + "-" + entry.version + ".tgz";
+			entry.resolved = "file:" + process.env.DISTDIR + "/" + name;
+		}
+		fs.writeFileSync("package-lock.json", JSON.stringify(lock, null, 2));
+	JS
+}
+
+src_compile() {
+	npm ci --offline --ignore-scripts --omit=dev --omit=optional \
+		--no-audit --no-fund --cache "${T}/npm-cache" || die
+
+	# QMD loads the grammar WASMs with web-tree-sitter, not the Node addons.
+	local grammar
+	for grammar in go javascript python rust typescript; do
+		rm -r "node_modules/tree-sitter-${grammar}/prebuilds" || die
+	done
+	find node_modules/better-sqlite3/prebuilds -type f \
+		! -name linux-x64.node -delete || die
+	# Do not ship the build machine's absolute DISTDIR paths.
+	rm package-lock.json node_modules/.package-lock.json || die
+}
+
+src_install() {
+	dodir /usr/lib/qmd
+	cp -a bin dist skills node_modules package.json "${ED}/usr/lib/qmd/" || die
+	fperms 0755 /usr/lib/qmd/bin/qmd
+	dosym ../lib/qmd/bin/qmd /usr/bin/qmd
+	dodoc README.md CHANGELOG.md
+}
+
+pkg_postinst() {
+	elog "This is tobi/qmd; the previous Rust package was qntx-labs/qmd."
+	elog "The two implementations have different configuration and index formats."
+	elog "Re-add collections and rebuild indexes with the new CLI."
+	elog "CLI state follows upstream XDG defaults for the invoking user."
+	elog "Models are downloaded on demand by upstream; run qmd pull explicitly."
+	elog "Use app-misc/qmd-mcp for an OpenRC HTTP service with separate state."
+}

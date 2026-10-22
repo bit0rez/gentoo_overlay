@@ -1,0 +1,37 @@
+#!/sbin/openrc-run
+# Copyright 2026 Ilya Merkulov
+# Distributed under the terms of the GNU General Public License v2
+
+description="QMD Streamable HTTP MCP server"
+
+supervisor="supervise-daemon"
+command="/usr/bin/qmd"
+command_user="qmd:qmd"
+command_args="mcp --http --host ${QMD_MCP_IP:-127.0.0.1} --port ${QMD_MCP_PORT:-8181}"
+directory="/var/lib/qmd/tobi"
+pidfile="/run/qmd-mcp/supervise.pid"
+output_log="/var/log/qmd/qmd-mcp.log"
+error_log="/var/log/qmd/qmd-mcp.log"
+respawn_delay=5
+respawn_max=3
+respawn_period=60
+retry="TERM/30/KILL/5"
+umask=0007
+
+export HOME="/var/lib/qmd"
+export XDG_CACHE_HOME="/var/lib/qmd/tobi/cache"
+export XDG_CONFIG_HOME="/var/lib/qmd/tobi/config"
+export QMD_CONFIG_DIR="/var/lib/qmd/tobi/config/qmd"
+export QMD_EMBED_MODEL="${QMD_EMBED_MODEL:-hf:ggml-org/embeddinggemma-300M-GGUF/embeddinggemma-300M-Q8_0.gguf}"
+
+depend() {
+	need localmount net
+	use dns
+}
+
+start_pre() {
+	checkpath --directory --mode 0770 --owner qmd:qmd \
+		/var/lib/qmd /var/lib/qmd/tobi /var/lib/qmd/tobi/cache \
+		/var/lib/qmd/tobi/config /var/lib/qmd/tobi/config/qmd || return 1
+	checkpath --directory --mode 0750 --owner qmd:qmd /run/qmd-mcp /var/log/qmd || return 1
+}

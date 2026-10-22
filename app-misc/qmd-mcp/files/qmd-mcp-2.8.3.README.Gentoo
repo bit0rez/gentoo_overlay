@@ -1,0 +1,38 @@
+QMD 2.8.3 migration and OpenRC service
+=====================================
+
+This package uses https://github.com/tobi/qmd. The old 0.3.2 package used
+qntx-labs/qmd, a different implementation. No automatic index or configuration
+migration is performed. Existing Rust state and models are left in place.
+
+The CLI uses the invoking user's upstream XDG directories. The OpenRC service
+runs as qmd and uses separate state below /var/lib/qmd/tobi. Collections must
+be added again and indexed; the service user needs read access to their files.
+
+Before configuring the service, create its state directories as root:
+
+  install -d -o qmd -g qmd -m 0770 /var/lib/qmd/tobi/cache \
+    /var/lib/qmd/tobi/config/qmd
+  su -s /bin/sh qmd
+
+In that shell, use the same environment as the service:
+
+  export XDG_CACHE_HOME=/var/lib/qmd/tobi/cache
+  export XDG_CONFIG_HOME=/var/lib/qmd/tobi/config
+  export QMD_CONFIG_DIR=/var/lib/qmd/tobi/config/qmd
+  cd /var/lib/qmd/tobi
+  qmd collection add /absolute/path/to/documents --name documents
+  qmd pull
+  qmd embed
+  exit
+
+Model downloads are performed by qmd pull, not by Portage. Ensure sufficient
+free space and network access. The packaged llama.cpp backend is CPU-only.
+
+Review /etc/conf.d/qmd-mcp (including any CONFIG_PROTECT update) before
+starting or restarting the service. QMD_MODEL_PATH from the Rust service is
+replaced by QMD_EMBED_MODEL. Binding defaults to 127.0.0.1:8181; the MCP
+endpoint is http://127.0.0.1:8181/mcp. The service invokes qmd mcp --http.
+
+After preparing the index, start or restart qmd-mcp as root. This package does
+not change an existing service's runlevel membership or restart it on upgrade.

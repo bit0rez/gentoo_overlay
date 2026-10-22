@@ -10,6 +10,6 @@
 		Streamable HTTP for multiple MCP clients.
 	</longdescription>
 	<upstream>
-		<remote-id type="github">qntx-labs/qmd</remote-id>
+		<remote-id type="github">tobi/qmd</remote-id>
 	</upstream>
 </pkgmetadata>

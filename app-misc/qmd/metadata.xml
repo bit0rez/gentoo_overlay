@@ -6,10 +6,11 @@
 		<email>iamerkulov@avito.ru</email>
 	</maintainer>
 	<longdescription>
-		Installs the QMD command-line client, MCP server, and the default
-		EmbeddingGemma GGUF model with system-wide shared storage.
+		Installs tobi/qmd, a local hybrid search engine for Markdown with
+		BM25, vector search, LLM reranking, and an integrated MCP server.
+		Models are managed by upstream and downloaded on demand.
 	</longdescription>
 	<upstream>
-		<remote-id type="github">qntx-labs/qmd</remote-id>
+		<remote-id type="github">tobi/qmd</remote-id>
 	</upstream>
 </pkgmetadata>
