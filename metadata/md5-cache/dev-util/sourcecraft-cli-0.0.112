@@ -1,0 +1,15 @@
+DEFINED_PHASES=install postinst
+DESCRIPTION=Command-line interface for the SourceCraft development platform
+EAPI=8
+HOMEPAGE=https://sourcecraft.dev/portal/docs/en/sourcecraft/operations/cli-quickstart
+INHERIT=optfeature
+IUSE=cpu_flags_x86_sse2
+KEYWORDS=amd64 arm64 x86
+LICENSE=all-rights-reserved
+RDEPEND=app-misc/ca-certificates dev-vcs/git
+REQUIRED_USE=x86? ( cpu_flags_x86_sse2 )
+RESTRICT=bindist mirror strip
+SLOT=0
+SRC_URI=amd64? ( https://s3.yandexcloud.net/sourcecraft-cli/releases/0.0.112/linux_amd64/src.tar.gz -> sourcecraft-cli-0.0.112-linux-amd64.tar.gz ) arm64? ( https://s3.yandexcloud.net/sourcecraft-cli/releases/0.0.112/linux_arm64/src.tar.gz -> sourcecraft-cli-0.0.112-linux-arm64.tar.gz ) x86? ( https://s3.yandexcloud.net/sourcecraft-cli/releases/0.0.112/linux_386/src.tar.gz -> sourcecraft-cli-0.0.112-linux-386.tar.gz )
+_eclasses_=optfeature	58cc13bdc4e9a204077e1e7c9a1d7988
+_md5_=726262bf922f921252c2e6a1d5bb7beb
