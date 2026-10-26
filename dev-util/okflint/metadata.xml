@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>iamerkulov@avito.ru</email>
+		<name>Ilya Merkulov</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="github">mattdav/okflint</remote-id>
+		<remote-id type="pypi">okflint</remote-id>
+	</upstream>
+</pkgmetadata>
