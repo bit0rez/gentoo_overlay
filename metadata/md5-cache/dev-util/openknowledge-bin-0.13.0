@@ -1,0 +1,11 @@
+DEFINED_PHASES=install
+DESCRIPTION=Git-native knowledge validation, retrieval and MCP runtime (prebuilt)
+EAPI=8
+HOMEPAGE=https://openknowledge.sh https://github.com/openknowledge-sh/openknowledge
+KEYWORDS=amd64 arm64
+LICENSE=Apache-2.0 BSD MIT
+RDEPEND=app-misc/ca-certificates dev-vcs/git
+RESTRICT=strip
+SLOT=0
+SRC_URI=amd64? ( https://github.com/openknowledge-sh/openknowledge/releases/download/v0.13.0/openknowledge_linux_amd64.tar.gz -> openknowledge-bin-0.13.0-amd64.tar.gz ) arm64? ( https://github.com/openknowledge-sh/openknowledge/releases/download/v0.13.0/openknowledge_linux_arm64.tar.gz -> openknowledge-bin-0.13.0-arm64.tar.gz )
+_md5_=9538a22f18fb92dba966c8fd04a80167
