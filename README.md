@@ -13,16 +13,23 @@
 | `app-misc/agent-lsp` | MCP-сервер, объединяющий языковые серверы в рабочие процессы для AI-агентов |
 | `app-misc/beads` | Распределённый issue tracker и постоянная память для AI-агентов |
 | `app-misc/graphify` | Локальный граф знаний и MCP-сервер по исходному коду и документации |
-| `app-misc/qmd` | Локальный поисковый движок и MCP-сервер для AI-агентов; включает модель EmbeddingGemma |
+| `app-misc/qmd` | Гибридный поиск по Markdown и MCP-сервер tobi/qmd; модели загружаются отдельно |
 | `app-misc/qmd-mcp` | OpenRC-сервис QMD MCP с общим системным индексом |
+| `app-misc/rtk` | CLI-прокси, сокращающий расход токенов AI-агентов за счёт фильтрации вывода команд |
 | `app-misc/zeroclaw` | CLI, TUI, веб-интерфейс и опциональное desktop-приложение ZeroClaw |
+| `app-office/obsidian` | Obsidian — база знаний на основе Markdown, включая Obsidian CLI |
 | `dev-db/clickhouse-client` | Клиент ClickHouse |
 | `dev-db/clickhouse-common-static` | Статические компоненты ClickHouse |
 | `dev-util/chatgpt-bin` | Официальное desktop-приложение ChatGPT с поддержкой Codex |
 | `dev-util/codex` | Codex CLI со сборкой из исходников |
 | `dev-util/codex-bin` | Готовый бинарный пакет Codex CLI из официальных GitHub Releases |
+| `dev-util/github-cli` | Официальный GitHub CLI (`gh`) |
+| `dev-util/openknowledge-bin` | OpenKnowledge: проверка и поиск знаний в Git, MCP runtime; команды `openknowledge` и `okn` |
+| `dev-util/sourcecraft-cli` | CLI платформы SourceCraft (`src`) |
 | `media-sound/yandex-music` | Официальное desktop-приложение Яндекс Музыки |
+| `net-im/ktalk` | Desktop-приложение Контур.Толк |
 | `net-im/max` | Официальное desktop-приложение MAX |
+| `net-misc/restish` | CLI для REST API с поддержкой OpenAPI |
 | `net-proxy/tun2socks` | Перенаправление трафика TUN-интерфейса через прокси в userspace |
 | `virtual/codex` | Выбор бинарного Codex CLI или сборки из исходников через USE-флаг `binary` |
 
@@ -37,13 +44,15 @@
 emerge --ask app-eselect/eselect-repository
 ```
 
-Добавьте репозиторий и синхронизируйте его:
+Добавьте репозиторий из одного из источников и синхронизируйте его. GitHub:
 
 ```sh
 eselect repository add bit0rez git \
   https://github.com/bit0rez/gentoo_overlay.git
 emaint sync -r bit0rez
 ```
+
+Или SourceCraft:
 
 ```sh
 eselect repository add bit0rez git \
@@ -69,6 +78,7 @@ emerge --ask app-misc/qmd
 emerge --ask app-misc/qmd-mcp
 emerge --ask app-misc/zeroclaw
 emerge --ask dev-util/chatgpt-bin
+emerge --ask dev-util/openknowledge-bin
 emerge --ask media-sound/yandex-music
 emerge --ask net-im/max
 emerge --ask net-proxy/tun2socks
@@ -81,6 +91,19 @@ emerge --ask net-proxy/tun2socks
 agent-lsp init
 agent-lsp doctor
 ```
+
+`dev-util/openknowledge-bin` устанавливает готовые бинарники OpenKnowledge
+для `amd64` и `arm64` со стабильными keyword'ами. Доступны две команды:
+`openknowledge` и его алиас `okn`. Проверить версию и начать настройку базы
+знаний можно так:
+
+```sh
+okn version
+okn setup
+```
+
+Документация и уведомления о лицензиях устанавливаются в
+`/usr/share/doc/openknowledge-bin-<версия>/`.
 
 Перед запуском `net-proxy/tun2socks` укажите прокси и параметры TUN-интерфейса
 в `/etc/tun2socks/config.yaml`. Затем добавьте сервис в автозагрузку и запустите
@@ -96,7 +119,9 @@ rc-service tun2socks start
 
 `app-misc/graphify` устанавливает локальный CLI, MCP-сервер и грамматические
 модули tree-sitter для Go, Rust, TypeScript, Lua, JavaScript, Kotlin, C, C++,
-Java, Python, SQL и YAML. Запустить MCP-сервер для готового графа можно так:
+Java, Python, SQL, YAML, Ruby, C#, Scala, PHP, Swift, Zig, PowerShell,
+Elixir, Objective-C, Julia, Verilog, Fortran и Groovy. Запустить MCP-сервер
+для готового графа можно так:
 
 ```sh
 graphify-mcp graphify-out/graph.json --transport stdio
@@ -122,10 +147,11 @@ USE="-binary" emerge --ask virtual/codex
 ```
 
 Для постоянного выбора сборки из исходников добавьте `virtual/codex -binary`
-в `/etc/portage/package.use`. Пакеты доступны с keyword'ами `~amd64` и
-`~arm64`. Полный бинарный пакет требует glibc >= 2.38 для включённых
-голосового компонента и zsh. Исходная и бинарная реализации конфликтуют,
-поскольку устанавливают одинаковые команды и каталог ресурсов.
+в `/etc/portage/package.use`. Пакеты доступны со стабильными keyword'ами
+`amd64` и `arm64`. Актуальный бинарный пакет требует glibc >= 2.28 для
+голосового компонента; начиная с 0.163.0 zsh в него не входит. Исходная и
+бинарная реализации конфликтуют, поскольку устанавливают одинаковые
+команды и каталог ресурсов.
 
 Если реализация ранее была установлена напрямую и записана в `@world`,
 перед переходом на виртуальный пакет уберите её из выбранных пакетов:
@@ -140,27 +166,53 @@ emerge --ask virtual/codex
 
 ## QMD MCP
 
-QMD хранит общий индекс, конфигурацию и модель в `/var/lib/qmd`. Для выполнения
-административных команд используйте системного пользователя `qmd`:
+Начиная с 2.8.3 пакет использует `tobi/qmd`. Прежний Rust-пакет
+`qntx-labs/qmd` имеет другой формат конфигурации и индекса: коллекции нужно
+добавить заново и переиндексировать. Автоматической миграции нет; старое
+состояние сохраняется.
+
+Обычный CLI использует XDG-каталоги вызывающего пользователя. OpenRC-сервис
+работает от пользователя `qmd` и хранит отдельное состояние в
+`/var/lib/qmd/tobi`. Модели не включены в пакет: их загружает `qmd pull`.
+В overlay поставляется CPU-бэкенд для `amd64` с glibc.
+
+После установки `app-misc/qmd-mcp` создайте каталоги от root и откройте
+оболочку пользователя сервиса:
 
 ```sh
-doas -u qmd qmd status
+install -d -o qmd -g qmd -m 0770 /var/lib/qmd/tobi/cache \
+  /var/lib/qmd/tobi/config/qmd
+su -s /bin/sh qmd
 ```
 
-После установки `app-misc/qmd-mcp` проверьте настройки сервиса:
+В этой оболочке задайте окружение сервиса и подготовьте индекс. Пользователь
+`qmd` должен иметь доступ на чтение к выбранным документам:
+
+```sh
+export XDG_CACHE_HOME=/var/lib/qmd/tobi/cache
+export XDG_CONFIG_HOME=/var/lib/qmd/tobi/config
+export QMD_CONFIG_DIR=/var/lib/qmd/tobi/config/qmd
+cd /var/lib/qmd/tobi
+qmd collection add /absolute/path/to/documents --name documents
+qmd pull
+qmd embed
+qmd status
+exit
+```
+
+От root проверьте настройки сервиса и запустите его:
 
 ```sh
 ${EDITOR} /etc/conf.d/qmd-mcp
-```
-
-Затем добавьте сервис в автозагрузку и запустите его:
-
-```sh
 rc-update add qmd-mcp default
 rc-service qmd-mcp start
 ```
 
-По умолчанию MCP-сервер слушает `127.0.0.1:8181`.
+MCP endpoint по умолчанию — `http://127.0.0.1:8181/mcp`.
+В новой конфигурации `QMD_EMBED_MODEL` заменяет прежний `QMD_MODEL_PATH`.
+При обновлении проверьте изменения CONFIG_PROTECT в `/etc/conf.d/qmd-mcp`;
+пакет не перезапускает сервис автоматически. Подробности миграции находятся
+в `/usr/share/doc/qmd-mcp-<версия>/README.Gentoo*`.
 
 ## Обновление
 
