@@ -24,6 +24,8 @@
 | `dev-util/codex` | Codex CLI со сборкой из исходников |
 | `dev-util/codex-bin` | Готовый бинарный пакет Codex CLI из официальных GitHub Releases |
 | `dev-util/github-cli` | Официальный GitHub CLI (`gh`) |
+| `dev-util/kimi-code-bin` | Готовый бинарный пакет Kimi Code CLI; команда `kimi` |
+| `dev-util/kimi-code-desktop-bin` | Официальное desktop-приложение Kimi Code; команда `kimi-code` |
 | `dev-util/okflint` | Линтер документации в формате OKF; команда `okflint` |
 | `dev-util/openknowledge-bin` | OpenKnowledge: проверка и поиск знаний в Git, MCP runtime; команды `openknowledge` и `okn` |
 | `dev-util/sourcecraft-cli` | CLI платформы SourceCraft (`src`) |
@@ -36,6 +38,10 @@
 
 Системные пользователь и группа для QMD устанавливаются автоматически через
 `acct-user/qmd` и `acct-group/qmd`.
+
+Вспомогательные Python-зависимости поставляются в `dev-python/mcp`,
+`dev-python/mcp-types`, `dev-python/sse-starlette` и пакетах
+`dev-python/tree-sitter-*` с грамматиками языков для graphify.
 
 ## Подключение
 
@@ -79,6 +85,8 @@ emerge --ask app-misc/qmd
 emerge --ask app-misc/qmd-mcp
 emerge --ask app-misc/zeroclaw
 emerge --ask dev-util/chatgpt-bin
+emerge --ask dev-util/kimi-code-bin
+emerge --ask dev-util/kimi-code-desktop-bin
 emerge --ask dev-util/openknowledge-bin
 emerge --ask dev-util/okflint
 emerge --ask media-sound/yandex-music
@@ -93,6 +101,10 @@ emerge --ask net-proxy/tun2socks
 agent-lsp init
 agent-lsp doctor
 ```
+
+Пакеты Kimi Code доступны для `amd64` с glibc: CLI требует glibc >= 2.28,
+desktop-приложение — glibc >= 2.34. После установки CLI запускается командой
+`kimi`, desktop-приложение — командой `kimi-code` или из меню приложений.
 
 `dev-util/openknowledge-bin` устанавливает готовые бинарники OpenKnowledge
 для `amd64` и `arm64` со стабильными keyword'ами. Доступны две команды:
@@ -238,6 +250,9 @@ emerge --ask --update --deep --newuse @world
 ```
 
 ## Разработка
+
+При добавлении или удалении пакетов обновляйте список пакетов и связанные
+инструкции в этом README.
 
 После добавления или обновления ebuild пересоздайте `Manifest` пакета:
 
