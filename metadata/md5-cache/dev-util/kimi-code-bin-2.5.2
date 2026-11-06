@@ -1,0 +1,12 @@
+DEFINED_PHASES=install
+DESCRIPTION=Kimi Code CLI coding agent (prebuilt)
+EAPI=8
+HOMEPAGE=https://www.kimi.com/code/ https://github.com/MoonshotAI/kimi-code
+KEYWORDS=amd64
+LICENSE=MIT
+RDEPEND=app-misc/ca-certificates dev-vcs/git >=sys-libs/glibc-2.28 sys-devel/gcc:*[cxx]
+REQUIRED_USE=elibc_glibc
+RESTRICT=strip
+SLOT=0
+SRC_URI=https://github.com/MoonshotAI/kimi-code/releases/download/%40moonshot-ai/kimi-code%402.5.2/kimi-code-linux-x64.tar.gz -> kimi-code-bin-2.5.2-amd64.tar.gz https://raw.githubusercontent.com/MoonshotAI/kimi-code/%40moonshot-ai/kimi-code%402.5.2/LICENSE -> kimi-code-bin-2.5.2-LICENSE
+_md5_=4f21777476b2d40ba081a64589c427af
