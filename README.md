@@ -10,6 +10,7 @@
 
 | Пакет | Описание |
 | --- | --- |
+| `app-misc/agent-beacon-bin` | Agent Beacon — сбор телеметрии и просмотр истории сессий AI-агентов |
 | `app-misc/agent-lsp` | MCP-сервер, объединяющий языковые серверы в рабочие процессы для AI-агентов |
 | `app-misc/beads` | Распределённый issue tracker и постоянная память для AI-агентов |
 | `app-misc/graphify` | Локальный граф знаний и MCP-сервер по исходному коду и документации |
@@ -78,6 +79,7 @@ eselect repository list
 Например:
 
 ```sh
+emerge --ask app-misc/agent-beacon-bin
 emerge --ask app-misc/agent-lsp
 emerge --ask app-misc/beads
 emerge --ask app-misc/graphify
@@ -93,6 +95,11 @@ emerge --ask media-sound/yandex-music
 emerge --ask net-im/max
 emerge --ask net-proxy/tun2socks
 ```
+
+`app-misc/agent-beacon-bin` устанавливает `beacon` и его вспомогательные
+бинарники со стабильными keyword'ами для `amd64` и `arm64`. Версию можно
+проверить командой `beacon version`. Сбор телеметрии настраивается отдельно по
+[инструкции Agent Beacon для Linux](https://docs.asymptotelabs.ai/platforms/linux#user-mode-install).
 
 `app-misc/agent-lsp` устанавливает MCP-сервер, но не сами языковые серверы.
 Установите нужные серверы для своих языков, затем запустите настройку:
