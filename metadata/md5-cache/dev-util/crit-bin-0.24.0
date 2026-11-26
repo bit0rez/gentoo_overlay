@@ -1,0 +1,12 @@
+DEFINED_PHASES=install unpack
+DESCRIPTION=Browser-based review of AI coding agent plans, diffs and web apps
+EAPI=8
+HOMEPAGE=https://crit.md/ https://github.com/tomasz-tomczyk/crit
+KEYWORDS=amd64 arm64
+LICENSE=Apache-2.0 BSD BSD-2 MIT OFL-1.1
+RDEPEND=app-misc/ca-certificates dev-vcs/git x11-misc/xdg-utils amd64? ( >=sys-libs/glibc-2.34 )
+REQUIRED_USE=amd64? ( elibc_glibc )
+RESTRICT=strip
+SLOT=0
+SRC_URI=amd64? ( https://github.com/tomasz-tomczyk/crit/releases/download/v0.24.0/crit-linux-amd64 -> crit-bin-0.24.0-amd64 ) arm64? ( https://github.com/tomasz-tomczyk/crit/releases/download/v0.24.0/crit-linux-arm64 -> crit-bin-0.24.0-arm64 ) https://raw.githubusercontent.com/tomasz-tomczyk/crit/v0.24.0/LICENSE -> crit-bin-0.24.0.LICENSE https://raw.githubusercontent.com/tomasz-tomczyk/crit/v0.24.0/README.md -> crit-bin-0.24.0.README.md
+_md5_=cc3425a49c0dddf3da4d2590330fd0cf

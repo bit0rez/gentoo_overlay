@@ -24,6 +24,7 @@
 | `dev-util/chatgpt-bin` | Официальное desktop-приложение ChatGPT с поддержкой Codex |
 | `dev-util/codex` | Codex CLI со сборкой из исходников |
 | `dev-util/codex-bin` | Готовый бинарный пакет Codex CLI из официальных GitHub Releases |
+| `dev-util/crit-bin` | Crit — ревью планов, Git-диффов и запущенных веб-приложений в браузере |
 | `dev-util/github-cli` | Официальный GitHub CLI (`gh`) |
 | `dev-util/kimi-code-bin` | Готовый бинарный пакет Kimi Code CLI; команда `kimi` |
 | `dev-util/kimi-code-desktop-bin` | Официальное desktop-приложение Kimi Code; команда `kimi-code` |
@@ -87,6 +88,7 @@ emerge --ask app-misc/qmd
 emerge --ask app-misc/qmd-mcp
 emerge --ask app-misc/zeroclaw
 emerge --ask dev-util/chatgpt-bin
+emerge --ask dev-util/crit-bin
 emerge --ask dev-util/kimi-code-bin
 emerge --ask dev-util/kimi-code-desktop-bin
 emerge --ask dev-util/openknowledge-bin
@@ -100,6 +102,11 @@ emerge --ask net-proxy/tun2socks
 бинарники со стабильными keyword'ами для `amd64` и `arm64`. Версию можно
 проверить командой `beacon version`. Сбор телеметрии настраивается отдельно по
 [инструкции Agent Beacon для Linux](https://docs.asymptotelabs.ai/platforms/linux#user-mode-install).
+
+`dev-util/crit-bin` устанавливает команду `crit` для `amd64` и `arm64`.
+Бинарник для `amd64` требует glibc 2.34 или новее. Чтобы открыть план
+в браузере, выполните `crit plan.md`. Для подключения навыков Codex
+запустите `crit install codex` в корне проекта.
 
 `app-misc/agent-lsp` устанавливает MCP-сервер, но не сами языковые серверы.
 Установите нужные серверы для своих языков, затем запустите настройку:
