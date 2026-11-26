@@ -32,6 +32,7 @@
 | `dev-util/openknowledge-bin` | OpenKnowledge: проверка и поиск знаний в Git, MCP runtime; команды `openknowledge` и `okn` |
 | `dev-util/sourcecraft-cli` | CLI платформы SourceCraft (`src`) |
 | `media-sound/yandex-music` | Официальное desktop-приложение Яндекс Музыки |
+| `media-sound/yandex-music-rs` | Неофициальный клиент Яндекс Музыки на Rust и Slint |
 | `net-im/ktalk` | Desktop-приложение Контур.Толк |
 | `net-im/max` | Официальное desktop-приложение MAX |
 | `net-misc/restish` | CLI для REST API с поддержкой OpenAPI |
@@ -94,6 +95,7 @@ emerge --ask dev-util/kimi-code-desktop-bin
 emerge --ask dev-util/openknowledge-bin
 emerge --ask dev-util/okflint
 emerge --ask media-sound/yandex-music
+emerge --ask media-sound/yandex-music-rs
 emerge --ask net-im/max
 emerge --ask net-proxy/tun2socks
 ```
@@ -118,6 +120,9 @@ agent-lsp doctor
 
 `dev-util/chatgpt-bin` доступен для `amd64` и требует glibc >= 2.35.
 После установки ChatGPT можно запустить командой `chatgpt` или из меню приложений.
+
+`media-sound/yandex-music-rs` доступен для `amd64` и `arm64` с glibc >= 2.35.
+Клиент запускается командой `yamusic-rs` или из меню приложений.
 
 Пакеты Kimi Code доступны для `amd64` с glibc: CLI требует glibc >= 2.28,
 desktop-приложение — glibc >= 2.34. После установки CLI запускается командой
